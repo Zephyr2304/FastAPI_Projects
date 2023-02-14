@@ -7,7 +7,7 @@ https://www.udemy.com/course/fastapi-the-complete-course/ # you can refer to thi
 This Repository contain four projects that were taught in the course
 
 To Run The Project, You can install the dependencies from requirements.txt
-- run this command
+# run this command
 - pip install -r requirements.txt
 
 And Run the following command to access the application
