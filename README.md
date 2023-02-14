@@ -1,4 +1,4 @@
-# FastAPI_Projects
+# FastAPI_Projects(UDEMY)
 This is a repository for basic fastapi projects from udemy platform course
 
 https://www.udemy.com/course/fastapi-the-complete-course/ # you can refer to this course in udemy
@@ -6,13 +6,9 @@ https://www.udemy.com/course/fastapi-the-complete-course/ # you can refer to thi
 
 This Repository contain four projects that were taught in the course
 
-To Run The Project, You can install the dependencies from requirements.txt
-# run this command
-- pip install -r requirements.txt
-
-And Run the following command to access the application
-
-- uvicorn test:app --reload #To test the application for FASTAPI
+### To run the project present 
+##### 1. Follow the steps from the readme file present in master branch 
+##### 2. Run the following commands to run the project 
 
 - uvicorn books:app --reload   # To Access the first application called books for basic CRUD Operations
 
