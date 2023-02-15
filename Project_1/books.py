@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from enum import Enum
 
 
+# This is the first project file with Fastapi attributes defined below 
 
 app = FastAPI(
     title="Project_1",
@@ -11,13 +12,14 @@ app = FastAPI(
     redoc_url="/redoc")
 
 
+# This Class defined an enum to restrict the type validation
 class DirectionName(str,Enum):
     north = "north"
     south = "south"
     east = "east"
     west = "west"
 
-
+# THis API is to get all the directions based on class and if values matches return the output
 @app.get("/directions/{direction_name}")
 async def get_direction(direction_name: DirectionName):
     if direction_name == DirectionName.north:
@@ -28,6 +30,7 @@ async def get_direction(direction_name: DirectionName):
         return{"Direction": direction_name,"sub":"LEFT"}   
     return{"Direction": direction_name,"sub":"RIGHT"}
 
+# THis API is to get all the directions based on class and if values matches return the output
 
 Books = {
     "book_1":{'title':'Title One', 'author':'Author One'},
@@ -37,11 +40,12 @@ Books = {
     "book_5":{'title':'Title Five', 'author':'Author Five'}
 }
 
-
+# THis API is to get all the book present in the book list
 @app.get("/")
 async def get_all_books():
     return Books
 
+# THis API is get the book by skipping the book provided iin the query parameter
 @app.get("/skip")
 async def skip_book(skip_book:Optional[str] =None):
     if skip_book:
@@ -50,14 +54,17 @@ async def skip_book(skip_book:Optional[str] =None):
         return newbook
     return Books        
 
+# THis API is to get all the directions based on class and if values matches return the output
 @app.get("/books/{book_id}")
 async def get_book(book_id:int):
     return {"Book_title":book_id}
 
+# THis API is to get all the directions based on class and if values matches return the output
 @app.get("/{book_name}")
 async def read_book(book_name:str):
     return Books[book_name]
 
+# THis API is to get all the directions based on class and if values matches return the output
 @app.post("/")
 async def create_book(book_title:str,book_author:str):
     current_book_id = 0
@@ -69,12 +76,15 @@ async def create_book(book_title:str,book_author:str):
     Books[f"book_{current_book_id}"] = {'title':book_title,'author':book_author}
     return Books
 
-
+# THis API is to get all the directions based on class and if values matches return the output
 @app.put("/{book_name}")
 async def update_book(book_name:str,book_title: str,book_author:str):
     book_information = {'title':book_title,'author':book_author}
     Books[book_name] = book_information
     return book_information
+
+
+# THis API is to get all the directions based on class and if values matches return the output
 
 @app.delete("/{book_name}")
 async def delete_book(book_name):
