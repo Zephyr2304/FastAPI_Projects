@@ -4,7 +4,30 @@ from enum import Enum
 
 
 
-app = FastAPI(title="Project_1",description="This is the application for basic CRUD operations",docs_url="/docs",redoc_url="/redoc")
+app = FastAPI(
+    title="Project_1",
+    description="This is the application for basic CRUD operations",
+    docs_url="/docs",
+    redoc_url="/redoc")
+
+
+class DirectionName(str,Enum):
+    north = "north"
+    south = "south"
+    east = "east"
+    west = "west"
+
+
+@app.get("/directions/{direction_name}")
+async def get_direction(direction_name: DirectionName):
+    if direction_name == DirectionName.north:
+        return{"Direction": direction_name,"sub":"UP"}
+    if direction_name == DirectionName.south:
+        return{"Direction": direction_name,"sub":"DOWN"}
+    if direction_name == DirectionName.west:
+        return{"Direction": direction_name,"sub":"LEFT"}   
+    return{"Direction": direction_name,"sub":"RIGHT"}
+
 
 Books = {
     "book_1":{'title':'Title One', 'author':'Author One'},
@@ -14,11 +37,6 @@ Books = {
     "book_5":{'title':'Title Five', 'author':'Author Five'}
 }
 
-class DirectionName(str,Enum):
-    north = "north"
-    south = "south"
-    east = "east"
-    west = "west"
 
 @app.get("/")
 async def get_all_books():
@@ -64,6 +82,8 @@ async def delete_book(book_name):
     return f"Book {book_name} deleted"
 
 
+#--------------------------------------------------
+
 
 # ASSIGNMENT QUESTIONS 
 
@@ -80,16 +100,3 @@ async def delete_book(book_name):
     return f"Book {book_name} deleted"
 
 #--------------------------------------------------
-
-
-
-
-@app.get("/directions/{direction_name}")
-async def get_direction(direction_name: DirectionName):
-    if direction_name == DirectionName.north:
-        return{"Direction": direction_name,"sub":"UP"}
-    if direction_name == DirectionName.south:
-        return{"Direction": direction_name,"sub":"DOWN"}
-    if direction_name == DirectionName.west:
-        return{"Direction": direction_name,"sub":"LEFT"}   
-    return{"Direction": direction_name,"sub":"RIGHT"}

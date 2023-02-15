@@ -5,7 +5,11 @@ from pydantic import BaseModel
 from uuid import UUID
 
 
-app = FastAPI(title="Project_2",description="This is the application build on top of project_1 with further features and explorations",docs_url="/docs",redoc_url="/redoc")
+app = FastAPI(
+    title="Project_2",
+    description="This is the application build on top of project_1 with further features and explorations",
+    docs_url="/docs",
+    redoc_url="/redoc")
 
 class Book(BaseModel):
     id:UUID
