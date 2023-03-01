@@ -34,6 +34,15 @@ class Book(BaseModel):
             }
         }
 
+class BookNoRating(BaseModel):
+    id: UUID
+    title: str = Field(min_length=1)
+    author: str
+    description: Optional[str] = Field(
+        None, title="description of the Book",
+        max_length=100,
+        min_length=1
+    )
 
 Books = []
 
@@ -51,6 +60,14 @@ async def negative_number_exception_handler(request: Request,
                             f"books? You need to read more!"}
     )
 
+@app.post("/books/login")
+async def book_login(username: str = Form(), password: str = Form()):
+    return {"username": username, "password": password}
+
+
+@app.get("/header")
+async def read_header(random_header: Optional[str] = Header(None)):
+    return {"Random-Header": random_header}
 
 
 # THis API is to get all the book present in the booklist (IF the list is empty it will call the function to fill the list)
@@ -79,8 +96,15 @@ async def read_book(book_id: UUID):
             return x
     raise raise_item_cannot_be_found_exception()
 
+@app.get("/book/rating/{book_id}", response_model=BookNoRating)
+async def read_book_no_rating(book_id: UUID):
+    for x in Books:
+        if x.id == book_id:
+            return x
+    raise raise_item_cannot_be_found_exception()
+
 # THis API is to post new book with type: Book class defined as pydantic model and add to book list
-@app.post("/")
+@app.post("/",status_code=status.HTTP_201_CREATED)
 async def create_book(book:Book):
     Books.append(book)
     return Books
