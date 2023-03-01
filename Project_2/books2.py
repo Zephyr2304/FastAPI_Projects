@@ -37,9 +37,29 @@ class Book(BaseModel):
 
 Books = []
 
+class NegativeNumberException(Exception):
+    def __init__(self, books_to_return):
+        self.books_to_return = books_to_return
+
+
+@app.exception_handler(NegativeNumberException)
+async def negative_number_exception_handler(request: Request,
+                                            exception: NegativeNumberException):
+    return JSONResponse(
+        status_code=418,
+        content={"message": f"Hey, why do you want {exception.books_to_return} "
+                            f"books? You need to read more!"}
+    )
+
+
+
 # THis API is to get all the book present in the booklist (IF the list is empty it will call the function to fill the list)
 @app.get("/")
 async def get_all_Books(books_to_show: Optional[int]= None):
+
+    if books_to_show and books_to_show < 0:
+        raise NegativeNumberException(books_to_return=books_to_show)
+
     if len(Books) < 1:
         Add_random_books()
     if books_to_show and len(Books) >= books_to_show > 0:
@@ -51,11 +71,13 @@ async def get_all_Books(books_to_show: Optional[int]= None):
         return new_books
     return Books
 
+
 @app.get("/book/{book_id}")
 async def read_book(book_id: UUID):
     for x in Books:
         if x.id == book_id:
             return x
+    raise raise_item_cannot_be_found_exception()
 
 # THis API is to post new book with type: Book class defined as pydantic model and add to book list
 @app.post("/")
@@ -72,6 +94,7 @@ async def update_book(book_id: UUID, book: Book):
         if x.id == book_id:
             Books[counter - 1] = book
             return Books[counter - 1]
+    raise raise_item_cannot_be_found_exception()
 
 
 @app.delete("/{book_id}")
@@ -83,6 +106,7 @@ async def delete_book(book_id: UUID):
         if x.id == book_id:
             del Books[counter - 1]
             return f'ID:{book_id} deleted'
+    raise raise_item_cannot_be_found_exception()
 
 # THis function is to add some random books so that the list should never be empty 
 def Add_random_books():
