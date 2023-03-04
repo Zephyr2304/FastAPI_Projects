@@ -169,3 +169,22 @@ def raise_item_cannot_be_found_exception():
                                   "Nothing to be seen at the UUID"})
 
 
+
+#--------------------------------------------------
+
+# ASSIGNMENT QUESTIONS 
+# Modify our API book_login, so that it will consume an API header, that will have a username attribute and a password attribute, and it will receive a query parameter of which book the user wants to read.
+# The username submitted must be called FastAPIUser and the password submitted must be test1234!
+# If both the username and password are valid, return the book located specified by the query parameter
+# If either username or password is invalid, return “Invalid User”
+# Call this new function after calling the  read_all_books just to make sure we have setup a fake inventory
+
+
+@app.post("/Assignment/login/")
+async def book_login(book_id:int ,  username: str = Header(None), password: str = Header(None)):
+    if username == "FastAPIUser" and password == 'test1234':
+        return Books[book_id]
+    return "Invalid User"
+    
+
+#--------------------------------------------------
