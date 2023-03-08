@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean,Integer,String,Column,ForeignKey
-from database import Base
+from misc.database import Base
 from sqlalchemy.orm import relationship
 
 #This is the schema for todo app which inherit Base class,name="todos", has 5 columns.

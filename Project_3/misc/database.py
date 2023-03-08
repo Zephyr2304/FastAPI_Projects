@@ -19,3 +19,10 @@ SessionLocal = sessionmaker(autocommit = False,autoflush=False,bind=engine)
 
 # This is the base which is inherited by the models(schema) created in the database
 Base = declarative_base()
+
+def get_db():
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close()
