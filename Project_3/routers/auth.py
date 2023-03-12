@@ -77,6 +77,7 @@ async def create_new_user(create_user: pymodels.CreateUser, db: Session = Depend
     create_user_model.username = create_user.username
     create_user_model.first_name = create_user.first_name
     create_user_model.last_name = create_user.last_name
+    create_user_model.phone_no = create_user.phone_number
 
     hash_password = get_password_hash(create_user.password)
 

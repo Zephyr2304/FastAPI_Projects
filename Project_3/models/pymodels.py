@@ -18,3 +18,4 @@ class CreateUser(BaseModel):
     first_name: str
     last_name: str
     password: str
+    phone_number: Optional[str]
