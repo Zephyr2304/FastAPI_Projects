@@ -18,4 +18,21 @@ class CreateUser(BaseModel):
     first_name: str
     last_name: str
     password: str
-    phone_number: Optional[str]
+    phone_number: Optional[str] # assignment part
+
+
+#This is the pydantic model for user address
+class Address(BaseModel):
+    address1: str
+    address2: str
+    city: str
+    state:str
+    country:str
+    zipcode:str
+    apt_num: Optional[int] # assignment part
+
+#This is the pydantic model for user verification for assignment purpose
+class UserVerification(BaseModel):
+    username: str
+    password: str
+    New_password: str
