@@ -22,6 +22,7 @@ app = FastAPI(
 schema.Base.metadata.create_all(bind=engine)
 templates = Jinja2Templates(directory='templates')
 
+app.mount('/static', StaticFiles(directory='static'),name="static")
 
 app.include_router(auth.router)
 app.include_router(todos.router)
@@ -30,4 +31,4 @@ app.include_router(users.router)
 
 @app.get("/test")
 async def test(request:Request):
-    return templates.TemplateResponse("home.html",{"request":request})
+    return templates.TemplateResponse("add-todo.html",{"request":request})
