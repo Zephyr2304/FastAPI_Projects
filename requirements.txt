@@ -1,3 +1,4 @@
+aiofiles==23.1.0
 alembic==1.9.4
 anyio==3.6.2
 asttokens==2.2.1
