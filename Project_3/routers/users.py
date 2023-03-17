@@ -55,15 +55,6 @@ async def user_by_query(user_id:int, db:Session=Depends(get_db)):
 
 
 
-@router.get("/user/{user_id}")
-async def user_by_path(user_id:int, db:Session=Depends(get_db)):
-    user_model =db.query(Users).filter(Users.id==user_id).first()
-    if user_model is not None:
-        return user_model
-    return "Invalid User ID"
-
-
-
 @router.put("/user/password")
 async def user_password_change(user_verification:UserVerification,user:dict= Depends(get_current_user) ,db:Session=Depends(get_db)):
     if user is None:
